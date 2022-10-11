@@ -6,19 +6,16 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject grass;
     [SerializeField] GameObject road;
-    [SerializeField] int extent;
+    [SerializeField] Player player;
+    [SerializeField] int extent = 7;
     [SerializeField] int frontDistance = 10;
     [SerializeField] int minZPos = -5;
     [SerializeField] int maxSameTerrainRepeat = 3;
-    // [SerializeField] Player player;
     // int maxZPos;
-
-
 
     Dictionary<int, TerrainBlock> map = new Dictionary<int, TerrainBlock>(50);
     private void Start()
     {
-
         //belakang
         for (int z = minZPos; z <= 0; z++)
         {
@@ -32,9 +29,17 @@ public class GameManager : MonoBehaviour
             // instantiate bloknya
             CreateTerrain(prefab, z);
         }
+        // Debug.Log(Tree.AllPositions.Count);
+        // foreach (var treePos in Tree.AllPositions)
+        // {
+        //     Debug.Log(treePos);
+        // }
 
-        // player.SetUp(minZPos, extent);
+        player.SetUp(minZPos, extent);
     }
+
+
+    // Debug.Log(Tree.AllPositions)
 
     private void CreateTerrain(GameObject prefab, int zPos)
     {
@@ -42,7 +47,7 @@ public class GameManager : MonoBehaviour
         var tb = go.GetComponent<TerrainBlock>();
         tb.Build(extent);
         map.Add(zPos, tb);
-        Debug.Log(map[zPos] is Road);
+        // Debug.Log(map[zPos] is Road);
     }
 
     private GameObject GetNextRandomTerrainPrefab(int nextPos)
