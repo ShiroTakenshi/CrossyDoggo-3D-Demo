@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45102906, g: 0.49948215, b: 0.56681305, a: 1}
+  m_IndirectSpecularColor: {r: 0.45102948, g: 0.49948293, b: 0.5668138, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -180,10 +180,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2483406627217014937, guid: bc1f973fa3fba1d4c96823da35eb7d6b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.35
+      value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2483406626755393446, guid: bc1f973fa3fba1d4c96823da35eb7d6b, type: 3}
+    - target: {fileID: 2483406627217014937, guid: bc1f973fa3fba1d4c96823da35eb7d6b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2483406627217014937, guid: bc1f973fa3fba1d4c96823da35eb7d6b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2483406627217014937, guid: bc1f973fa3fba1d4c96823da35eb7d6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc1f973fa3fba1d4c96823da35eb7d6b, type: 3}
 --- !u!1 &896307803
 GameObject:
@@ -262,8 +273,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 896307803}
-  m_LocalRotation: {x: 0.23260544, y: -0.03354612, z: 0.008029638, w: 0.97195935}
-  m_LocalPosition: {x: 0.19416402, y: 2.455591, z: -5.4953165}
+  m_LocalRotation: {x: -0.30793956, y: 0.14397062, z: -0.04720217, w: -0.9392644}
+  m_LocalPosition: {x: 1.0852163, y: 3.688116, z: -2.8311367}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -315,11 +326,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grass: {fileID: 7938081140884287981, guid: 1d233cc5cebd3b344ab21761e34204f5, type: 3}
   road: {fileID: 3516425097333056732, guid: 08b75c2a73165ba4abac40b0d7a0c4b0, type: 3}
+  player: {fileID: 1535796623}
   extent: 5
   frontDistance: 10
   minZPos: -5
   maxSameTerrainRepeat: 3
-  player: {fileID: 1535796623}
 --- !u!4 &1047073364
 Transform:
   m_ObjectHideFlags: 0

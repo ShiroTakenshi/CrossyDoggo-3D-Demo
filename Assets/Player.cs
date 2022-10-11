@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -5,18 +6,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // [SerializeField] ParticleSystem dieParticles;
     [SerializeField, Range(0.01f, 1f)] float moveDuration = 0.2f;
     [SerializeField, Range(0.01f, 1f)] float jumpHigh = 0.5f;
-    private float RightBoundary;
-    private float BackBoundary;
-    private float LeftBoundary;
+    private float rightBoundary;
+    private float leftBoundary;
+    private float backBoundary;
 
     public void SetUp(int minZPos, int extent)
     {
-        BackBoundary = minZPos - 1;
-        LeftBoundary = -(extent + 1);
-        RightBoundary = extent + 1;
+        backBoundary = minZPos - 1;
+        leftBoundary = -(extent + 1);
+        rightBoundary = extent + 1;
     }
+
+
 
     private void Update()
     {
@@ -50,22 +54,28 @@ public class Player : MonoBehaviour
     private void Jump(Vector3 TargetDirection)
     {
         // var TargetPosition = transform.position + new Vector3(TargetDirection.x, 0, TargetDirection.y);
+        //atur rotasi
         var targetPosition = transform.position + TargetDirection;
-
         transform.LookAt(targetPosition);
+
+        // loncat ke atas
         var moveSeq = DOTween.Sequence(transform);
         moveSeq.Append(transform.DOMoveY(jumpHigh, moveDuration / 2));
         moveSeq.Append(transform.DOMoveY(0f, moveDuration / 2));
 
-        // if (targetPosition.z <= BackBoundary || targetPosition.x <= LeftBoundary || targetPosition.x >= RightBoundary)
-        //     return;
+        if (targetPosition.z <= backBoundary || targetPosition.x <= leftBoundary || targetPosition.x >= rightBoundary)
+            return;
 
-        // if (Tree.AllPosition.Contains(targetPosition))
-        //     return;
-
+        if(Tree.AllPosition.Contains(targetPosition))
+        {
+            // mati
+            // dieParticles.Play();
+            // Destroy(gameObject);
+            return;
+        }
 
         // transform.DOMoveY(0.5f, 0.1f).onComplete(() => transform.DOMoveY(0, 0.1f));
-
+        // gerak maju / mundur / samping
         transform.DOMoveX(targetPosition.x, moveDuration);
         transform.DOMoveZ(targetPosition.z, moveDuration);
     }
@@ -74,24 +84,45 @@ public class Player : MonoBehaviour
         return DOTween.IsTweening(transform);
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Car")
+        if (this.enabled == false)
+            return;
+        // di execute sekali pada frame ketika nempel pertama kali
+        var car = other.GetComponent<Car>();
+        if (car != null)
         {
-            AnimatedDie();
+            AnimateDie(car);
         }
 
+        if (other.tag == "Car")
+        {
+            // Debug.Log("Hit " + other.name);
+            // AnimateDie();
+        }
     }
 
-    private void AnimatedDie()
+    private void AnimateDie(Car car)
     {
-        //(nilai, waktu) 
-        //animasi gepeng.
+        // var isRight = car.transform.rotation.y == 90;
+        // transform.DOMoveX(isRight ? 8 : -8, 0.2f);
+        // transform.DORotate(Vector3.forward * 360, 0.2f).SetLoops(100, LoopType.Restart);
+
+        // Gepeng
         transform.DOScaleY(0.1f, 0.2f);
-        transform.DOScaleX(1.1f, 0.2f);
-        transform.DOScaleZ(1.1f, 0.2f);
+        transform.DOScaleX(3, 0.2f);
+        transform.DOScaleZ(2, 0.2f);
         this.enabled = false;
         // dieParticles.Play();
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        // di execute setiap frame selama masih nempel
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // diexecute sekali [ada frame ketika tidak nempel
+    }
 }
