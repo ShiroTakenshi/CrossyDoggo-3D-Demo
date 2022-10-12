@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class Rudder : MonoBehaviour
 {
-    [SerializeField] Space space;
     [SerializeField] Vector3 v3;
 
-    [SerializeField] float speed;
+    [SerializeField] float speed = 0;
 
-    private void FixedUpdate()
+    private void Update()
     {
-        transform.Rotate(v3 * speed *Time.deltaTime, space);
-        Debug.Log(Time.fixedTime);
+        transform.Rotate(v3 * Time.deltaTime * speed);
     }
 
-    
+
 }

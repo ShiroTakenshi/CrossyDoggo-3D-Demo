@@ -50,16 +50,19 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update()
-    {   
+    {
         //check player masih hidup ga?
-        if(player.IsDie && gameOverPanel.activeInHierarchy == false)
+        if (player.IsDie && gameOverPanel.activeInHierarchy == false)
+        {
             StartCoroutine(ShowGameOverPanel());
+        }
+
     }
 
     IEnumerator ShowGameOverPanel()
     {
         yield return new WaitForSeconds(3);
-        gameOverText.text = "YOUR SCORE: "+ player.MaxTravel; 
+        gameOverText.text = "YOUR SCORE: " + player.MaxTravel;
         gameOverPanel.SetActive(true);
     }
 
