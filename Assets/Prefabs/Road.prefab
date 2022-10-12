@@ -296,7 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carPrefab: {fileID: 1551979934083733433, guid: bd2a782ef05cc824abed61226f01fd5a, type: 3}
   terrain: {fileID: 6371063238752449758}
-  minSpawnDuration: 4
+  minSpawnDuration: 2
   maxSpawnDuration: 5
 --- !u!1 &3516425097703072860
 GameObject:

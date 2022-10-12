@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,11 +12,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] int frontDistance = 10;
     [SerializeField] int minZPos = -5;
     [SerializeField] int maxSameTerrainRepeat = 3;
+    [SerializeField] GameObject gameOverPanel;
+
+    public bool IsDie { get => this.enabled == false; }
+
+
     // int maxZPos;
 
     Dictionary<int, TerrainBlock> map = new Dictionary<int, TerrainBlock>(50);
+    TMP_Text gameOverText;
+
     private void Start()
     {
+        gameOverPanel.SetActive(false);
+        gameOverText = gameOverPanel.GetComponentInChildren<TMP_Text>();
+
         //belakang
         for (int z = minZPos; z <= 0; z++)
         {
@@ -36,6 +47,20 @@ public class GameManager : MonoBehaviour
         // }
 
         player.SetUp(minZPos, extent);
+    }
+
+    private void Update()
+    {   
+        //check player masih hidup ga?
+        if(player.IsDie && gameOverPanel.activeInHierarchy == false)
+            StartCoroutine(ShowGameOverPanel());
+    }
+
+    IEnumerator ShowGameOverPanel()
+    {
+        yield return new WaitForSeconds(3);
+        gameOverText.text = "YOUR SCORE: "+ player.MaxTravel; 
+        gameOverPanel.SetActive(true);
     }
 
 
