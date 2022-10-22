@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class Player : MonoBehaviour
     [SerializeField, Range(0.01f, 1f)] float jumpHigh = 0.5f;
     [SerializeField] private int maxTravel;
     [SerializeField] private int currentTravel;
+    [SerializeField] AudioSource walkingSound;
+    [SerializeField] AudioSource ketabrakSound;
+    [SerializeField] AudioSource busSound;
     public bool IsDie { get => this.enabled == false; }
 
 
@@ -37,6 +41,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        busSound.Play();
         var MoveDir = Vector3.zero;
         if (Input.GetKey(KeyCode.UpArrow))
             MoveDir += new Vector3(0, 0, 1);
@@ -76,6 +81,7 @@ public class Player : MonoBehaviour
         transform
                 .DOMoveZ(targetPosition.z, moveDuration)
                 .OnComplete(UpdateTravel);
+        walkingSound.Play();
     }
 
     private void UpdateTravel()
@@ -120,6 +126,7 @@ public class Player : MonoBehaviour
         transform.DOScaleZ(2, 0.2f);
         this.enabled = false;
         dieParticles.Play();
+        ketabrakSound.Play();
 
     }
 
